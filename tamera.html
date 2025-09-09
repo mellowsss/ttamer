@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tamera ✿ Official Site</title>
+  <meta name="description" content="Tamera — portfolio, updates, and contact." />
+
+  <!-- Cute Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #fff7fb;
+      --bg-soft: #ffeefe;
+      --ink: #4a3a4f;
+      --ink-soft:#6b5a70;
+      --brand:#ff7cc8;
+      --brand-2:#8ad1ff;
+      --brand-3:#ffd76e;
+      --card:#ffffffd9;
+      --ring:#ffd1ec;
+      --shadow: 0 10px 25px rgba(255, 124, 200, .18);
+      --radius: 18px;
+    }
+
+    /* Base */
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      font:16px/1.5 "Nunito", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, #ffe0f6 0%, transparent 60%),
+        radial-gradient(900px 450px at 110% 10%, #e1f4ff 0%, transparent 60%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+    /* floating kawaii shapes */
+    .floaty{
+      position:fixed; inset:0; pointer-events:none; z-index:-1; opacity:.55;
+    }
+    .floaty span{
+      position:absolute; font-size:26px; filter:drop-shadow(0 8px 10px rgba(0,0,0,.03));
+      animation: drift linear infinite;
+    }
+    @keyframes drift{
+      from{ transform: translateY(110vh) rotate(0deg); opacity:.0; }
+      10%{opacity:.9}
+      to{ transform: translateY(-10vh) rotate(360deg); opacity:.2; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .floaty{display:none}
+      *{animation:none !important; transition:none !important}
+    }
+
+    /* Layout helpers */
+    .container{ width:min(1100px, 92%); margin-inline:auto; }
+    .stack{ display:grid; gap:1.2rem; }
+    .row{ display:flex; flex-wrap:wrap; gap:1rem; align-items:center; }
+
+    /* Header / Nav */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(8px);
+      background: color-mix(in oklab, white 88%, var(--bg-soft));
+      border-bottom:1px dashed var(--ring);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.7rem 0;
+    }
+    .logo{
+      display:flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--ink);
+      font-weight:900;
+    }
+    .logo .mark{
+      width:40px; height:40px; border-radius:50%;
+      background: conic-gradient(from 200deg, var(--brand), var(--brand-3), var(--brand-2), var(--brand));
+      display:grid; place-items:center; box-shadow:var(--shadow); outline:2px solid #fff;
+    }
+    .logo .mark span{ font-family:"Pacifico", cursive; font-size:1.1rem; color:white; transform:translateY(1px); }
+
+    nav a{
+      text-decoration:none; color:var(--ink-soft);
+      padding:.55rem .9rem; border-radius:999px; border:1px dashed transparent;
+    }
+    nav a:hover{ border-color:var(--ring); background:var(--bg-soft) }
+
+    .cta{
+      background: linear-gradient(135deg, var(--brand), #ff9bd8);
+      color:#fff; border:none; border-radius:999px; padding:.65rem 1rem; font-weight:800;
+      box-shadow:var(--shadow); cursor:pointer;
+    }
+    .cta:hover{ transform: translateY(-1px) }
+
+    /* Hero */
+    .hero{
+      padding: clamp(2rem, 4vw + 1rem, 5rem) 0 2rem;
+    }
+    .hero-card{
+      background: var(--card);
+      border:1px dashed var(--ring); border-radius: calc(var(--radius) + 8px);
+      box-shadow: var(--shadow);
+      padding: clamp(1rem, 2.5vw + 1rem, 2.4rem);
+      display:grid; gap:1.2rem;
+    }
+    .hero h1{
+      font-family:"Pacifico", cursive;
+      font-size:clamp(2rem, 4.5vw + 1rem, 3.4rem);
+      line-height:1.1; margin:0;
+      background: linear-gradient(120deg, var(--brand), var(--brand-3), var(--brand-2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .badges{ display:flex; flex-wrap:wrap; gap:.6rem }
+    .badge{
+      border-radius:999px; padding:.35rem .7rem; font-weight:800; font-size:.85rem;
+      border:1px dashed var(--ring); background:#fff; color:var(--ink-soft)
+    }
+
+    /* Sections */
+    section{ padding: 2.2rem 0; }
+    .card{
+      background: var(--card);
+      border:1px dashed var(--ring);
+      border-radius: var(--radius);
+      padding:1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* Grid gallery */
+    .grid{
+      display:grid; gap:1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .polaroid{
+      background:#fff; border:1px solid #ffe2f5; border-radius:14px; padding:.6rem;
+      transform:rotate(-1.2deg);
+    }
+    .polaroid img{ width:100%; height:220px; object-fit:cover; border-radius:10px }
+    .polaroid p{ margin:.4rem 0 0; text-align:center; font-weight:700; color:#8c6b88 }
+
+    /* Timeline */
+    .timeline{ position:relative; margin-left:.6rem }
+    .timeline::before{
+      content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background: linear-gradient(var(--brand), var(--brand-2));
+      border-radius:2px; opacity:.35;
+    }
+    .tick{
+      position:relative; margin-left:2rem; padding:.2rem 0 .9rem;
+    }
+    .tick::before{
+      content:""; position:absolute; left:-12px; top:.4rem; width:12px; height:12px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--brand));
+      box-shadow:0 0 0 3px #ffe3f5;
+    }
+    .tick h4{ margin:.2rem 0 .2rem }
+    .tick p{ margin:0; color:var(--ink-soft) }
+
+    /* Footer */
+    footer{
+      padding:2rem 0 4rem; text-align:center; color:#7a657e
+    }
+    .mini{
+      font-size:.9rem; opacity:.8
+    }
+
+    /* Contact form */
+    form label{ display:block; font-weight:800; margin:.4rem 0 .2rem }
+    input, textarea{
+      width:100%; border:1px dashed var(--ring); background:#fff; border-radius:12px; padding:.75rem;
+      font:inherit; color:var(--ink);
+    }
+    textarea{ min-height:120px; resize:vertical }
+    .pill{
+      display:inline-flex; align-items:center; gap:.5rem; border-radius:999px; padding:.45rem .8rem;
+      border:1px dashed var(--ring); background:#fff;
+    }
+
+    /* Theme toggle (light stays cute, dark = cozy) */
+    .toggle{ background:#fff; border:1px dashed var(--ring); border-radius:999px; padding:.35rem .6rem; cursor:pointer }
+    .toggle[aria-pressed="true"]{ background:#1c1420; color:#ffe0f7; border-color:#3b2d44 }
+
+    .dark{
+      --bg:#1b1520;
+      --bg-soft:#231a2a;
+      --ink:#f6e9ff;
+      --ink-soft:#e6d7f1;
+      --card:#291f31e0;
+      --ring:#3b2d44;
+      --shadow: 0 10px 25px rgba(0,0,0,.35);
+    }
+
+    /* Accessibility helpers */
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0 }
+  </style>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' x='6' font-size='56'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <!-- Floating emojis -->
+  <div class="floaty" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#home" aria-label="Tamera home">
+        <div class="mark" aria-hidden="true"><span>T</span></div>
+        <span>Tamera</span>
+      </a>
+
+      <nav aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#updates">Updates</a>
+        <a href="#contact" class="pill">💌 Contact</a>
+      </nav>
+
+      <button class="toggle" id="themeToggle" aria-pressed="false" title="Toggle cozy mode">🌙 <span class="sr-only">Toggle theme</span></button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="home" class="container hero">
+    <div class="hero-card">
+      <div class="row">
+        <div style="flex:2 1 360px" class="stack">
+          <h1>Hi, I’m Tamera ✨</h1>
+          <p style="margin:0; font-size:1.05rem">
+            Welcome to my cute corner of the internet! I share projects, photos,
+            and little joys that make life sparkle.
+          </p>
+          <div class="badges">
+            <span class="badge">creator</span>
+            <span class="badge">dreamer</span>
+            <span class="badge">pink enthusiast</span>
+          </div>
+          <div class="row">
+            <a class="cta" href="#gallery">See my Gallery</a>
+            <a class="pill" href="#about">Learn more →</a>
+          </div>
+        </div>
+        <div style="flex:1 1 260px">
+          <div class="card" aria-label="Tamera portrait" style="text-align:center">
+            <!-- Replace with your own image -->
+            <img src="https://images.unsplash.com/photo-1516302350523-4c1e3c5a97a0?q=80&w=800&auto=format&fit=crop" alt="Playful pastel illustration" style="width:100%; border-radius:12px; aspect-ratio:1/1; object-fit:cover" />
+            <p class="mini">Add your own photo here 💗</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container grid">
+      <article class="card">
+        <h2 style="margin:.2rem 0 0">About Tamera</h2>
+        <p>
+          I’m Tamera — I make things, take pictures, and collect cozy moments.
+          On weekends you’ll find me doodling, thrifting, and hunting for the
+          best matcha in town.
+        </p>
+        <ul>
+          <li>🧁 Favorite treat: strawberry cupcakes</li>
+          <li>🎧 Current vibe: lo-fi sunshine</li>
+          <li>🎀 Motto: “Sprinkle kindness like confetti.”</li>
+        </ul>
+      </article>
+
+      <aside class="card">
+        <h3 style="margin:.2rem 0 0">Quick Links</h3>
+        <p class="mini">Replace with your real profiles.</p>
+        <div class="stack">
+          <a class="pill" href="#" aria-disabled="true">📸 Instagram</a>
+          <a class="pill" href="#" aria-disabled="true">🎥 TikTok</a>
+          <a class="pill" href="#" aria-disabled="true">🛍️ Shop</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" aria-label="Photo gallery">
+    <div class="container stack">
+      <h2 style="margin:0">Gallery</h2>
+      <div class="grid">
+        <!-- Replace images with your own -->
+        <figure class="polaroid">
+          <img src="https://images.unsplash.com/photo-1504198266285-165a3c9a31ee?q=80&w=900&auto=format&fit=crop" alt="Pastel sky with cotton-candy clouds">
+          <p>cotton candy skies</p>
+        </figure>
+        <figure class="polaroid" style="transform:rotate(1.2deg)">
+          <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=900&auto=format&fit=crop" alt="Cute desk setup with stickers">
+          <p>desk vibes</p>
+        </figure>
+        <figure class="polaroid" style="transform:rotate(-.6deg)">
+          <img src="https://images.unsplash.com/photo-1526312426976-593c2709a4d2?q=80&w=900&auto=format&fit=crop" alt="Pink flowers in the sun">
+          <p>little blooms</p>
+        </figure>
+        <figure class="polaroid" style="transform:rotate(.4deg)">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=900&auto=format&fit=crop" alt="Flatlay of craft supplies">
+          <p>craft corner</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Updates / Timeline -->
+  <section id="updates">
+    <div class="container stack">
+      <h2 style="margin:0">Latest Updates</h2>
+      <div class="card timeline">
+        <div class="tick">
+          <h4>✨ New mini-print set launched</h4>
+          <p>Limited pastel collection is live in the shop!</p>
+        </div>
+        <div class="tick">
+          <h4>🌸 Spring photo walk</h4>
+          <p>Captured 35mm film in the botanical gardens.</p>
+        </div>
+        <div class="tick">
+          <h4>💌 Newsletter #12</h4>
+          <p>Shared behind-the-scenes sketches and playlists.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container grid">
+      <div class="card">
+        <h2 style="margin:0">Say Hello 💌</h2>
+        <p class="mini">This form uses <code>mailto:</code>. Connect it to a backend or service if you want full submissions.</p>
+        <form action="mailto:you@example.com" method="post" enctype="text/plain">
+          <label for="name">Your name</label>
+          <input id="name" name="name" placeholder="Tamera Fan" required>
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@email.com" required>
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Write something sweet…"></textarea>
+
+          <div class="row" style="margin-top:.8rem">
+            <button class="cta" type="submit">Send message</button>
+            <button class="pill" type="reset">Reset</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Fun Facts</h3>
+        <ul style="margin:.4rem 0 0">
+          <li>I keep a tiny jar of star stickers with me ⭐</li>
+          <li>I name my houseplants (don’t judge 😅)</li>
+          <li>I can make perfect heart-shaped pancakes 🥞</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container stack" style="align-items:center">
+      <div class="row" role="img" aria-label="Cute divider">🌈 ✿ 💖 ✿ 🌈</div>
+      <small class="mini">© <span id="year"></span> Tamera • Made with sparkle and lots of tea</small>
+    </div>
+  </footer>
+
+  <script>
+    // floating emojis (hearts, stars)
+    const emojis = ['💖','✨','🌸','💫','🫧','⭐','🎀'];
+    const floaty = document.querySelector('.floaty');
+    for(let i=0;i<24;i++){
+      const s=document.createElement('span');
+      s.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      s.style.left = Math.random()*100 + 'vw';
+      s.style.animationDuration = (18 + Math.random()*12) + 's';
+      s.style.animationDelay = (-Math.random()*18) + 's';
+      s.style.opacity = (0.3 + Math.random()*0.6);
+      s.style.transform = `translateY(${110 + Math.random()*40}vh)`;
+      floaty.appendChild(s);
+    }
+
+    // theme toggle (stores preference)
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const key = 'tamera-theme';
+    const saved = localStorage.getItem(key);
+    if(saved==='dark'){ document.body.classList.add('dark'); btn.setAttribute('aria-pressed','true'); }
+    btn.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark');
+      btn.setAttribute('aria-pressed', isDark ? 'true':'false');
+      localStorage.setItem(key, isDark ? 'dark':'light');
+    });
+
+    // dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
